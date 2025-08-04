@@ -28,3 +28,6 @@ CREATE TABLE otps (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     expires_at DATETIME NOT NULL
 );
+
+INSERT INTO user (firstName, lastName, email, role)
+VALUES ('Maria', 'Papadopoulou', 'maria@example.com', 'Visitor');
