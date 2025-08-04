@@ -37,7 +37,11 @@ export const sendOTP = async (req, res) => {
 };
 
 export const verifyOTP = async (req, res) => {
-  const { email, otp } = req.body;
+    const { email, otp } = req.body;
+
+    if (!email || !otp) {
+      return res.status(400).json({ success: false, message: "Please provide both email and OTP" });
+    }
 
   try {
     const [rows] = await db.query(`
@@ -51,10 +55,7 @@ export const verifyOTP = async (req, res) => {
       return res.status(400).json({ error: 'Invalid or expired OTP' });
     }
 
-    res.status(200).json({
-      message: 'OTP verified successfully',
-      email,
-    });
+    res.status(200).json({ message: 'OTP verified successfully', email });
   } catch (error) {
     console.error('OTP verification failed:', error);
     res.status(500).json({ error: 'OTP verification failed' });
